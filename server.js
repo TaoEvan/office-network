@@ -27,12 +27,12 @@ io.on("connection", (socket) => {
   let last = 0;
   const minMs = 100; // 10 Hz
 
-  socket.on("join", ({ roomId = "main", name = "Guest", color = "#4ade80" } = {}) => {
+  socket.on("join", ({ roomId = "main", name = "Guest", image = "" } = {}) => {
     socket.data.roomId = roomId;
     socket.join(roomId);
     const room = getRoom(roomId);
 
-    const me = { id: socket.id, name, color, x: 200, y: 200, dir: "D" };
+    const me = { id: socket.id, name, avatar: image, x: 200, y: 200, dir: "D" };
     room.set(socket.id, me);
 
     socket.emit("state:init", Array.from(room.values()));
