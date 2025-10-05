@@ -2,9 +2,16 @@
 const http = require("http");
 const express = require("express");
 const { Server } = require("socket.io");
+const recorder = require("./recorder/recorder.js")
+
 
 const app = express();
 app.get("/", (_, res) => res.send("ok"));
+
+app.use("/recorder", recorder)
+
+app.set("view engine", 'ejs')
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
